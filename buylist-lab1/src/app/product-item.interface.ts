@@ -3,4 +3,5 @@ export interface ProductItem {
   itemCost: number
   itemCount: number
   itemName: string
+  isItemPurchased: boolean
 }
