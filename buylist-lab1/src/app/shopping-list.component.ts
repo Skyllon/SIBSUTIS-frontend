@@ -13,6 +13,19 @@ export class ShoppingListComponent implements OnInit {
   ngOnInit(): void {
       this.loadFromTheStorage()
   }
+
+  addItem(product: { name: string, cost: number, count: number }): void {
+    const newItem : ProductItem = {
+      id: ++this.items.length,
+      itemCost: product.cost,
+      itemCount: product.count,
+      itemName: product.name
+    }
+
+    this.items.push(newItem)
+    this.saveItemToStorage()
+  }
+
   loadFromTheStorage(): void {
     const storage = localStorage.getItem('shopping-list')
 
