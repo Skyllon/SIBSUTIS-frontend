@@ -1,0 +1,36 @@
+<div class="shopping-list">
+  <h1>Список покупок</h1>
+
+  <app-add-item-form (itemAdded)="addItem($event)"></app-add-item-form>
+
+  <div class="filter-buttons">
+    <button
+      [class.active]="filter === 'all'"
+      (click)="setFilter('all')">
+      Все
+    </button>
+    <button
+      [class.active]="filter === 'notPurchased'"
+      (click)="setFilter('notPurchased')">
+      Не куплено
+    </button>
+    <button
+      [class.active]="filter === 'purchased'"
+      (click)="setFilter('purchased')">
+      Куплено
+    </button>
+  </div>
+
+  <div class="items-container">
+    <app-shopping-item
+      *ngFor="let item of filteredItems"
+      [item]="item"
+      (remove)="removeItem($event)"
+      (togglePurchased)="togglePurchased($event)">
+    </app-shopping-item>
+  </div>
+
+  <div *ngIf="filteredItems.length === 0" class="empty-message">
+    Список покупок пуст
+  </div>
+</div>

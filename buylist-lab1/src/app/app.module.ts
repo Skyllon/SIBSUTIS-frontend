@@ -3,18 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { ShoppingListComponent } from './shopping-list.component';
-import { ShoppingItemComponent } from './shopping-item.component';
+import { ShoppingListComponent } from './shopping-list/shopping-list.component';
+import { ShoppingItemComponent } from './shopping-item/shopping-item.component';
+import { AddItemFormComponent } from './add-item-form/add-item-form.component';
 
 @NgModule({
-  declarations: [
+  imports: [
+    BrowserModule,
+    FormsModule,
     AppComponent,
     ShoppingListComponent,
     ShoppingItemComponent,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule
+    AddItemFormComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
