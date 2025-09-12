@@ -33,6 +33,10 @@ export class ShoppingListComponent implements OnInit {
       this.items = JSON.parse(storage)
   }
 
+  setFilter(filteredBy: 'all' | 'purchased' | 'active'): void {
+    this.filter = filteredBy
+  }
+
   private saveItemToStorage(): void {
     localStorage.setItem('shopping-list', JSON.stringify(this.items))
   }
