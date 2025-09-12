@@ -27,6 +27,10 @@ export class ShoppingListComponent implements OnInit {
     this.items.push(newItem)
     this.saveItemToStorage()
   }
+  removeItem(id: number): void {
+    this.items = this.items.filter(item => item.id !== id)
+    this.saveItemToStorage()
+  }
 
   onPurchased(id: number): void {
     const item = this.items.find(item => item.id === id)
