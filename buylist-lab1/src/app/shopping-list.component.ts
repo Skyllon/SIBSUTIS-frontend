@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ProductItem } from './product-item.interface'
+import { isUint8ClampedArray } from 'util/types'
 
 @Component({
   selector: 'app-shopping-list',
@@ -19,11 +20,21 @@ export class ShoppingListComponent implements OnInit {
       id: ++this.items.length,
       itemCost: product.cost,
       itemCount: product.count,
-      itemName: product.name
+      itemName: product.name,
+      isItemPurchased: false
     }
 
     this.items.push(newItem)
     this.saveItemToStorage()
+  }
+
+  onPurchased(id: number): void {
+    const item = this.items.find(item => item.id === id)
+
+    if (item) {
+      item.isItemPurchased = !item.isItemPurchased
+      this.saveItemToStorage()
+    }
   }
 
   loadFromTheStorage(): void {
