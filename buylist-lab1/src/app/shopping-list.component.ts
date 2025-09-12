@@ -4,6 +4,7 @@ import { isUint8ClampedArray } from 'util/types'
 
 @Component({
   selector: 'app-shopping-list',
+  standalone: false,
   templateUrl: '../index.html'
 })
 
