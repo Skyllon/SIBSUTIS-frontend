@@ -8,9 +8,14 @@ import { ProductItem } from './product-item.interface';
 
 export class ShoppingItemComponent {
   @Input() item!: ProductItem
+  @Output() onRemove = new EventEmitter<number>()
   @Output() onPurchased = new EventEmitter<number>()
 
   clickOnPurchased() {
     this.onPurchased.emit(this.item.id)
+  }
+
+  clickOnRemove() {
+    this.onRemove.emit(this.item.id)
   }
 }
