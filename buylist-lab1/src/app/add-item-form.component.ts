@@ -3,7 +3,6 @@ import { ProductItem } from './product-item.interface';
 
 @Component({
   selector: 'app-shopping-list',
-  standalone: false,
   templateUrl: '../index.html'
 })
 
