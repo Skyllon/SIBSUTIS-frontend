@@ -1,15 +1,15 @@
 <div class="shopping-item" [class.purchased]="item.purchased">
   <div class="item-info">
     <span class="name">{{ item.name }}</span>
+    <span class="note">{{ item.note }} </span>
     <span class="quantity">({{ item.quantity }} шт.)</span>
   </div>
 
   <div class="item-actions">
-    <button
-      (click)="onTogglePurchased()"
-      [class]="item.purchased ? 'btn-purchased' : 'btn-not-purchased'">
+    <button (click)="onTogglePurchased()" [class]="item.purchased ? 'btn-purchased' : 'btn-not-purchased'">
       {{ item.purchased ? '✓' : 'Купить' }}
     </button>
     <button (click)="onRemove()" class="btn-remove">✕</button>
+    <button (click)="onToggleEdit()" class="btn-edit">✏️</button>
   </div>
 </div>

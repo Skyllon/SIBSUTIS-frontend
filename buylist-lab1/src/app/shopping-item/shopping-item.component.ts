@@ -11,6 +11,7 @@ import { ProductItem } from '../models/product-item.model';
 })
 export class ShoppingItemComponent {
   @Input() item!: ProductItem;
+  @Output() editItem = new EventEmitter<number>();
   @Output() remove = new EventEmitter<number>();
   @Output() togglePurchased = new EventEmitter<number>();
 
@@ -20,5 +21,9 @@ export class ShoppingItemComponent {
 
   onTogglePurchased() {
     this.togglePurchased.emit(this.item.id);
+  }
+
+  onToggleEdit() {
+    this.editItem.emit(this.item.id);
   }
 }

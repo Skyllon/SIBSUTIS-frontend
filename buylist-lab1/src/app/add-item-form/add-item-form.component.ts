@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ProductItem } from '../models/product-item.model';
+import { ProductItem, Category } from '../models/product-item.model';
 
 @Component({
   selector: 'app-add-item-form',
@@ -15,17 +15,20 @@ export class AddItemFormComponent {
 
   name = '';
   quantity = 1;
+  note?: string = '';
 
   onSubmit() {
     if (this.name.trim()) {
       this.itemAdded.emit({
         name: this.name.trim(),
         quantity: this.quantity,
-        purchased: false
+        purchased: false,
+        category: Category.OTHER,
+        note: this.note
       });
 
-      // Сброс формы
       this.name = '';
+      this.note = '';
       this.quantity = 1;
     }
   }

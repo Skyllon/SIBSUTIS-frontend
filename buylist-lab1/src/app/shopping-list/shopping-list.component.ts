@@ -34,6 +34,15 @@ export class ShoppingListComponent implements OnInit {
     this.saveItemsToStorage();
   }
 
+  editItem(id: number) {
+    const item = this.items.find(item => item.id === id);
+
+    if (item) {
+
+      this.saveItemsToStorage();
+    }
+  }
+
   togglePurchased(id: number) {
     const item = this.items.find(item => item.id === id);
     if (item) {
