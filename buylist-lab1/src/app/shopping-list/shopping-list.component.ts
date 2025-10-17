@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { ProductItem } from '../models/product-item.model';
 import { ShoppingItemComponent } from '../shopping-item/shopping-item.component';
 import { AddItemFormComponent } from '../add-item-form/add-item-form.component';
