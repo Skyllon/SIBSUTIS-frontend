@@ -1,4 +1,10 @@
-export enum Category { 'FOOD', 'DRINK', 'HOME', 'SCHOOL', "OTHER" };
+export enum Category {
+  FOOD = 'FOOD',
+  DRINK = 'DRINK',
+  HOME = 'HOME',
+  SCHOOL = 'SCHOOL',
+  OTHER = 'OTHER'
+};
 
 export interface ProductItem {
   id: number;

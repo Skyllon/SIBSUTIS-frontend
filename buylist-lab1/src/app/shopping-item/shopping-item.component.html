@@ -1,15 +1,38 @@
-<div class="shopping-item" [class.purchased]="item.purchased">
-  <div class="item-info">
-    <span class="name">{{ item.name }}</span>
-    <span class="note">{{ item.note }} </span>
-    <span class="quantity">({{ item.quantity }} шт.)</span>
+<div class="shopping-item" [class.purchased]="item.purchased" [class.editing]="isEditing">
+
+  <div *ngIf="!isEditing" class="item-info">
+    <div class="item-header">
+      <span class="name">{{ item.name }}</span>
+      <span class="category-badge">{{ item.category }}</span>
+    </div>
+    <div class="item-details">
+      <span class="note" *ngIf="item.note">{{ item.note }}</span>
+      <span class="quantity">({{ item.quantity }} шт.)</span>
+    </div>
+  </div>
+
+  <div *ngIf="isEditing" class="edit-form">
+    <input type="text" [(ngModel)]="editedItem.name" class="edit-input">
+    <input type="text" [(ngModel)]="editedItem.note" class="edit-input" placeholder="Описание">
+    <input type="number" [(ngModel)]="editedItem.quantity" min="1" class="edit-input quantity-input">
+    <select [(ngModel)]="editedItem.category" class="edit-select">
+      <option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </option>
+    </select>
   </div>
 
   <div class="item-actions">
-    <button (click)="onTogglePurchased()" [class]="item.purchased ? 'btn-purchased' : 'btn-not-purchased'">
-      {{ item.purchased ? '✓' : 'Купить' }}
-    </button>
-    <button (click)="onRemove()" class="btn-remove">✕</button>
-    <button (click)="onToggleEdit()" class="btn-edit">✏️</button>
+    <div *ngIf="!isEditing">
+      <button (click)="onTogglePurchased()" [class]="item.purchased ? 'btn-purchased' : 'btn-not-purchased'">
+        {{ item.purchased ? '✓' : 'Купить' }}
+      </button>
+      <button (click)="onRemove()" class="btn-remove">✕</button>
+      <button (click)="onToggleEdit()" class="btn-edit">✏️</button>
+    </div>
+    <div *ngIf="isEditing" class="edit-actions">
+      <button (click)="saveEdit()" class="btn-save">✓</button>
+      <button (click)="cancelEdit()" class="btn-cancel">✕</button>
+    </div>
   </div>
 </div>

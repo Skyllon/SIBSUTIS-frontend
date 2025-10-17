@@ -15,7 +15,10 @@ export class AddItemFormComponent {
 
   name = '';
   quantity = 1;
-  note?: string = '';
+  note = '';
+  categories = Object.values(Category);
+  selectedCategory = Category.OTHER;
+  showDropdown = false;
 
   onSubmit() {
     if (this.name.trim()) {
@@ -23,13 +26,19 @@ export class AddItemFormComponent {
         name: this.name.trim(),
         quantity: this.quantity,
         purchased: false,
-        category: Category.OTHER,
-        note: this.note
+        category: this.selectedCategory,
+        note: this.note.trim()
       });
 
       this.name = '';
       this.note = '';
       this.quantity = 1;
+      this.selectedCategory = Category.OTHER;
     }
+  }
+
+  selectCategory(category: Category) {
+    this.selectedCategory = category;
+    this.showDropdown = false;
   }
 }
