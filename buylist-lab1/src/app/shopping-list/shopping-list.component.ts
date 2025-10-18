@@ -69,9 +69,8 @@ export class ShoppingListComponent implements OnInit {
   private applyFilters() {
     let result = this.items;
 
-    if (this.searchTerm) {
+    if (this.searchTerm)
       result = this.shoppingService.searchItems(this.searchTerm);
-    }
 
     switch (this.filter) {
       case 'purchased':

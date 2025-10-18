@@ -29,11 +29,7 @@ export class ShoppingItemComponent {
   }
 
   onToggleEdit() {
-    if (this.isEditing) {
-      this.saveEdit();
-    } else {
-      this.startEdit();
-    }
+    this.isEditing ? this.saveEdit() : this.startEdit();
   }
 
   startEdit() {
