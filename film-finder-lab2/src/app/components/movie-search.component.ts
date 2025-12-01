@@ -24,7 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule
   ],
   templateUrl: './movie-search.component.html',
-  styleUrls: ['./movie-search.component.css']
+  styleUrls: ['./movie-search.component.scss']
 })
 export class MovieSearchComponent implements OnInit {
   searchTerm = '';
