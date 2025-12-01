@@ -14,8 +14,7 @@ import { MovieSearchComponent } from './components/movie-search.component';
   template: `
     <div class="app-container">
       <header class="app-header">
-        <h1>🎬 Поиск фильмов</h1>
-        <p>Используется OMDB API</p>
+        <h1>Поисковичок-базовичок</h1>
       </header>
       <main>
         <app-movie-search></app-movie-search>
