@@ -1,0 +1,41 @@
+<div class="search-container">
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Название фильма</mat-label>
+    <input
+      matInput
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="search()"
+      placeholder="Введите название фильма..."
+    >
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div class="movies-grid" *ngIf="movies.length > 0 && !loading">
+    <mat-card *ngFor="let movie of movies" class="movie-card">
+      <img
+        mat-card-image
+        [src]="getPosterUrl(movie.Poster)"
+        [alt]="movie.Title"
+        class="movie-poster"
+        (error)="movie.Poster = 'assets/no-poster.jpg'"
+      >
+      <mat-card-content>
+        <h3 class="movie-title">{{ movie.Title }}</h3>
+        <p class="movie-year">{{ movie.Year }}</p>
+        <p class="movie-type">{{ movie.Type | titlecase }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngIf="movies.length === 0 && !loading && !errorMessage && searchTerm" class="no-results">
+    Начните вводить название фильма...
+  </div>
+</div>
