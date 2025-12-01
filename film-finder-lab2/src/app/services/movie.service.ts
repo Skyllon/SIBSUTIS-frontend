@@ -24,7 +24,7 @@ export class MovieService {
     }
 
     return this.http.get<MovieSearchResult>(this.apiUrl, { params }).pipe(
-      retry(1 << 2),
+      retry(1 << 1),
       catchError(this.handleError)
     );
   }
@@ -36,7 +36,7 @@ export class MovieService {
       .set('plot', 'full');
 
     return this.http.get<MovieDetails>(this.apiUrl, { params }).pipe(
-      retry(1 << 2),
+      retry(1 << 1),
       catchError(this.handleError)
     );
   }
