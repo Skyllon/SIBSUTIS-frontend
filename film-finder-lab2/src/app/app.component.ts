@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { MovieSearchComponent } from './components/movie-search.component';
+import { MovieSearchComponent } from './components/movie-search/movie-search.component';
 
 @Component({
   selector: 'app-root',
