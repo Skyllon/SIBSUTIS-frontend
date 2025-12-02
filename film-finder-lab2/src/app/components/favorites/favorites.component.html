@@ -1,0 +1,47 @@
+<div class="favorites-container">
+  <div class="favorites-header">
+    <h2>Избранное</h2>
+    
+    <div class="header-actions" *ngIf="favorites.length > 0">
+      <button mat-raised-button color="warn" (click)="clearAllFavorites()">
+        <mat-icon>delete_forever</mat-icon>
+        Очистить всё
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="favorites.length === 0" class="empty-state">
+    <mat-icon>favorite_border</mat-icon>
+    <h3>Нет избранных фильмов</h3>
+    <p>Добавляйте фильмы в избранное, нажимая на сердечко в карточке фильма</p>
+  </div>
+
+  <div class="movies-grid" *ngIf="favorites.length > 0">
+    <mat-card 
+      *ngFor="let movie of favorites" 
+      class="movie-card"
+      (click)="openMovieDetails(movie.imdbID)"
+    >
+      <div class="favorite-badge" (click)="removeFromFavorites(movie.imdbID, $event)">
+        <mat-icon color="warn">favorite</mat-icon>
+      </div>
+      
+      <img
+        mat-card-image
+        [src]="getPosterUrl(movie.Poster)"
+        [alt]="movie.Title"
+        class="movie-poster"
+        (error)="movie.Poster = 'assets/no-poster.jpg'"
+      >
+      <mat-card-content>
+        <h3 class="movie-title">{{ movie.Title }}</h3>
+        <p class="movie-year">{{ movie.Year }}</p>
+        <p class="movie-type">{{ movie.Type | titlecase }}</p>
+        <button mat-button color="primary" class="details-button">
+          <mat-icon>info</mat-icon>
+          Подробнее
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
