@@ -11,6 +11,7 @@ export interface Movie {
   imdbID: string;
   Type: string;
   Poster: string;
+  isFavorite?: boolean;
 }
 
 export interface MovieDetails {
@@ -39,9 +40,18 @@ export interface MovieDetails {
   Production: string;
   Website: string;
   Response: string;
+  isFavorite?: boolean;
 }
 
 export interface Rating {
   Source: string;
   Value: string;
+}
+
+export type MediaType = 'movie' | 'series' | 'episode' | 'game' | 'all';
+
+export interface CacheItem<T> {
+  data: T;
+  timestamp: number;
+  expiresIn: number;
 }
