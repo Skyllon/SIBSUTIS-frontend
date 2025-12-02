@@ -42,14 +42,15 @@ export class MovieSearchComponent implements OnInit {
       switchMap(term => {
         this.loading = true;
         this.errorMessage = '';
+        
         return this.movieService.searchMovies(term);
       })
     ).subscribe({
       next: (result) => {
         this.loading = false;
-        if (result.Response === 'True') {
+        if (result.Response === 'True')
           this.movies = result.Search;
-        } else {
+        else {
           this.movies = [];
           this.errorMessage = result.Error || 'Фильмы не найдены';
         }
@@ -63,9 +64,9 @@ export class MovieSearchComponent implements OnInit {
   }
 
   search(): void {
-    if (this.searchTerm.trim()) {
+    if (this.searchTerm.trim())
       this.searchTerms.next(this.searchTerm.trim());
-    } else {
+    else {
       this.movies = [];
       this.errorMessage = '';
     }

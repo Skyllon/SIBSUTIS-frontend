@@ -19,9 +19,8 @@ export class MovieService {
       .set('s', title)
       .set('type', 'movie');
 
-    if (year) {
+    if (year)
       params = params.set('y', year);
-    }
 
     return this.http.get<MovieSearchResult>(this.apiUrl, { params }).pipe(
       retry(1 << 1),
