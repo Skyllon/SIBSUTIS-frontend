@@ -7,7 +7,7 @@ import { CacheItem } from '../models/movie.model';
 })
 export class CacheService {
   private readonly CACHE_KEY = 'movie_cache';
-  private readonly DEFAULT_EXPIRY = 30 * 60 * 1000; // 30 минут
+  private readonly DEFAULT_EXPIRY = 30 * 60 * 1000; // 30 min
   private cache = new Map<string, CacheItem<any>>();
 
   constructor() {
