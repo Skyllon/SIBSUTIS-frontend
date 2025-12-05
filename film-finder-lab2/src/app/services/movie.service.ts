@@ -23,7 +23,7 @@ export class MovieService {
 
   searchMovies(title: string, type: MediaType = 'movie', page: number = 1): Observable<MovieSearchResult> {
     const cacheKey = this.generateCacheKey('search', { title, type, page });
-    
+
     return from(this.cacheService.get<MovieSearchResult>(cacheKey)).pipe(
       switchMap(cachedData => {
         if (cachedData) {
@@ -54,12 +54,11 @@ export class MovieService {
 
   getMovieDetails(id: string): Observable<MovieDetails> {
     const cacheKey = this.generateCacheKey('details', { id });
-    
+
     return from(this.cacheService.get<MovieDetails>(cacheKey)).pipe(
       switchMap(cachedData => {
-        if (cachedData) {
+        if (cachedData)
           return of(cachedData);
-        }
 
         const params = new HttpParams()
           .set('apikey', this.apiKey)
@@ -69,9 +68,8 @@ export class MovieService {
         return this.http.get<MovieDetails>(this.apiUrl, { params }).pipe(
           retry(1 << 1),
           tap(movie => {
-            if (movie.Response === 'True') {
+            if (movie.Response === 'True')
               this.cacheService.set(cacheKey, movie, 24 * 60 * 60 * 1000); // 24 hours
-            }
           }),
           catchError(this.handleError)
         );
@@ -81,11 +79,10 @@ export class MovieService {
 
   private handleError(error: any) {
     console.error('Произошла ошибка:', error);
-    
-    if (!navigator.onLine) {
+
+    if (!navigator.onLine)
       return throwError(() => new Error('Отсутствует подключение к интернету. Проверьте подключение и попробуйте снова.'));
-    }
-    
+
     return throwError(() => new Error(error.message || 'Ошибка сервера'));
   }
 
