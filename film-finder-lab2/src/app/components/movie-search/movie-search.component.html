@@ -1,0 +1,78 @@
+<div class="search-container">
+  <div class="search-header">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Название фильма</mat-label>
+      <input
+        matInput
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="search()"
+        placeholder="Введите название фильма..."
+      >
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="type-filter">
+      <mat-label>Тип</mat-label>
+      <mat-select [(ngModel)]="selectedType" (ngModelChange)="onTypeChange()">
+        <mat-option *ngFor="let type of mediaTypes" [value]="type.value">
+          {{ type.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="accent" (click)="clearCache()" class="cache-button">
+      <mat-icon>delete_sweep</mat-icon>
+      Очистить кеш
+    </button>
+  </div>
+
+  <div *ngIf="!isOnline" class="offline-warning">
+    <mat-icon>wifi_off</mat-icon>
+    <span>Оффлайн режим. Используется кешированная информация.</span>
+  </div>
+
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    <mat-icon>error_outline</mat-icon>
+    {{ errorMessage }}
+  </div>
+
+  <div class="movies-grid" *ngIf="movies.length > 0 && !loading">
+    <mat-card 
+      *ngFor="let movie of movies" 
+      class="movie-card"
+      (click)="openMovieDetails(movie.imdbID)"
+    >
+      <div class="favorite-badge" (click)="toggleFavorite(movie, $event)">
+        <mat-icon [color]="movie.isFavorite ? 'warn' : ''">
+          {{ movie.isFavorite ? 'favorite' : 'favorite_border' }}
+        </mat-icon>
+      </div>
+      
+      <img
+        mat-card-image
+        [src]="getPosterUrl(movie.Poster)"
+        [alt]="movie.Title"
+        class="movie-poster"
+        (error)="movie.Poster = 'assets/no-poster.jpg'"
+      >
+      <mat-card-content>
+        <h3 class="movie-title">{{ movie.Title }}</h3>
+        <p class="movie-year">{{ movie.Year }}</p>
+        <p class="movie-type">{{ movie.Type | titlecase }}</p>
+        <button mat-button color="primary" class="details-button">
+          <mat-icon>info</mat-icon>
+          Подробнее
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngIf="movies.length === 0 && !loading && !errorMessage && searchTerm" class="no-results">
+    <mat-icon>search_off</mat-icon>
+    <p>Фильмы не найдены. Попробуйте другой запрос.</p>
+  </div>
+</div>

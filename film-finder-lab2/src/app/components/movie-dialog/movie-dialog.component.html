@@ -1,0 +1,83 @@
+<div class="dialog-container" *ngIf="!loading; else loadingTemplate">
+  <div *ngIf="movieDetails && !errorMessage; else errorTemplate">
+    <div class="dialog-header">
+      <h2 mat-dialog-title>{{ movieDetails.Title }} ({{ movieDetails.Year }})</h2>
+      <button mat-icon-button (click)="close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    
+    <mat-dialog-content>
+      <div class="movie-details">
+        <div class="poster-section">
+          <img [src]="movieDetails.Poster" [alt]="movieDetails.Title" class="movie-poster">
+          <div class="ratings">
+            <div class="rating-item" *ngFor="let rating of movieDetails.Ratings">
+              <strong>{{ rating.Source }}:</strong> {{ rating.Value }}
+            </div>
+          </div>
+        </div>
+        
+        <div class="details-section">
+          <div class="detail-row">
+            <strong>Рейтинг IMDb:</strong> {{ movieDetails.imdbRating }} ({{ movieDetails.imdbVotes }} голосов)
+          </div>
+          <div class="detail-row">
+            <strong>Длительность:</strong> {{ movieDetails.Runtime }}
+          </div>
+          <div class="detail-row">
+            <strong>Жанр:</strong> {{ movieDetails.Genre }}
+          </div>
+          <div class="detail-row">
+            <strong>Режиссер:</strong> {{ movieDetails.Director }}
+          </div>
+          <div class="detail-row">
+            <strong>Сценаристы:</strong> {{ movieDetails.Writer }}
+          </div>
+          <div class="detail-row">
+            <strong>Актеры:</strong> {{ movieDetails.Actors }}
+          </div>
+          <div class="detail-row">
+            <strong>Сюжет:</strong> {{ movieDetails.Plot }}
+          </div>
+          <div class="detail-row">
+            <strong>Язык:</strong> {{ movieDetails.Language }}
+          </div>
+          <div class="detail-row">
+            <strong>Страна:</strong> {{ movieDetails.Country }}
+          </div>
+          <div class="detail-row">
+            <strong>Награды:</strong> {{ movieDetails.Awards }}
+          </div>
+          <div class="detail-row">
+            <strong>Кассовые сборы:</strong> {{ movieDetails.BoxOffice }}
+          </div>
+        </div>
+      </div>
+    </mat-dialog-content>
+    
+    <mat-dialog-actions align="end">
+      <button mat-button (click)="toggleFavorite()" color="warn">
+        <mat-icon>{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
+        {{ isFavorite ? 'Удалить из избранного' : 'В избранное' }}
+      </button>
+      <button mat-button (click)="close()">Закрыть</button>
+    </mat-dialog-actions>
+  </div>
+</div>
+
+<ng-template #loadingTemplate>
+  <div class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Загрузка деталей фильма...</p>
+  </div>
+</ng-template>
+
+<ng-template #errorTemplate>
+  <div class="error-container">
+    <mat-icon color="warn" class="error-icon">error_outline</mat-icon>
+    <h3>Ошибка загрузки</h3>
+    <p>{{ errorMessage }}</p>
+    <button mat-button (click)="close()">Закрыть</button>
+  </div>
+</ng-template>
