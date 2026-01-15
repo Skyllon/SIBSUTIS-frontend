@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { NotificationService } from '../../services/notification.service';
 
 @Component({
@@ -11,18 +11,24 @@ import { NotificationService } from '../../services/notification.service';
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss']
 })
-export class NotificationsComponent {
+export class NotificationsComponent implements OnDestroy {
+  private subscription?: Subscription;
+
   constructor(
     private snackBar: MatSnackBar,
     private notificationService: NotificationService
   ) {
-    this.notificationService.messages$
-      .pipe(take(1))
-      .subscribe(msg => {
-        this.snackBar.open(msg.text, 'OK', {
-          duration: 3000,
-          panelClass: [`toast-${msg.type}`]
-        });
+    this.subscription = this.notificationService.messages$.subscribe(msg => {
+      this.snackBar.open(msg.text, 'OK', {
+        duration: 3000,
+        panelClass: [`toast-${msg.type}`],
+        horizontalPosition: 'end',
+        verticalPosition: 'top'
       });
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }
