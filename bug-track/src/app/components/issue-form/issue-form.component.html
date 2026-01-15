@@ -1,0 +1,63 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="issue-form">
+  <mat-form-field appearance="outline">
+    <mat-label>Название</mat-label>
+    <input matInput formControlName="title" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Описание</mat-label>
+    <textarea matInput formControlName="description" rows="4"></textarea>
+  </mat-form-field>
+
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Тип</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let t of issueTypes" [value]="t">{{ t }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Приоритет</mat-label>
+      <mat-select formControlName="priority">
+        <mat-option *ngFor="let p of priorities" [value]="p">{{ p }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Исполнитель</mat-label>
+      <input matInput formControlName="assignee" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Статус</mat-label>
+      <mat-select formControlName="status">
+        <mat-option *ngFor="let s of statuses" [value]="s">{{ s }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="tags-row">
+    <mat-form-field appearance="outline">
+      <mat-label>Новый тег</mat-label>
+      <input matInput formControlName="newTag" (keyup.enter)="addTag()" />
+    </mat-form-field>
+    <button mat-stroked-button type="button" (click)="addTag()">Добавить тег</button>
+  </div>
+
+  <mat-chip-listbox>
+    <mat-chip *ngFor="let t of form.value.tags" (removed)="removeTag(t)">
+      {{ t }}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-listbox>
+
+  <div class="actions">
+    <button mat-button type="button" (click)="cancel.emit()">Отмена</button>
+    <button mat-raised-button color="primary" type="submit">
+      Сохранить
+    </button>
+  </div>
+</form>
