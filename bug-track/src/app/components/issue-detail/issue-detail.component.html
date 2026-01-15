@@ -1,0 +1,27 @@
+<mat-card>
+  <mat-card-title>
+    {{ isNew ? 'Новая задача' : 'Редактирование задачи #' + issue?.id }}
+  </mat-card-title>
+  <mat-card-content>
+    <issue-form
+      [issue]="issue"
+      (save)="onSave($event)"
+      (cancel)="onCancel()"
+    ></issue-form>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="issue && issue.history.length">
+  <mat-card-title>История изменений</mat-card-title>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let h of issue.history">
+        <div matLine>{{ h.date | date:'short' }} — {{ h.user }}</div>
+        <div matLine>
+          Поле "{{ h.field }}": "{{ h.oldValue }}" → "{{ h.newValue }}"
+          <span *ngIf="h.comment"> ({{ h.comment }})</span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
